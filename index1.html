@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteador de Números & Pagamento</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #e0f2f7; 
+            margin: 0;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h1 { color: #2a6f8a; margin-bottom: 20px; font-size: 1.8em; }
+
+        .input-group { margin-bottom: 15px; }
+
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #4a4a4a; }
+
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #cce7ed;
+            border-radius: 8px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        /* Seção de Pagamento */
+        .pagamento-box {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .valor-info {
+            color: #2e7d32;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .valor-info span { font-weight: bold; font-size: 1.4em; }
+
+        .pix-qr {
+            width: 150px;
+            height: 150px;
+            margin: 10px auto;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+        }
+
+        .chave-pix {
+            font-size: 0.9em;
+            background: #fff;
+            padding: 5px;
+            border: 1px dashed #aaa;
+            word-break: break-all;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover { background-color: #45a049; }
+
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 10px;
+            border: 1px dashed #a5d6a7;
+            min-height: 40px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .numero-sorteado {
+            background-color: #66bb6a;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Sorteador</h1>
+
+        <div class="input-group">
+            <label for="quantidade">Quantos números deseja?</label>
+            <input type="number" id="quantidade" min="1" max="100" value="1" oninput="calcularPreco()">
+        </div>
+
+        <div class="pagamento-box">
+            <div class="valor-info">
+                Total: <span id="preco-total">R$ 0,50</span>
+            </div>
+            
+            <p style="font-size: 0.9em; color: #666; margin-bottom: 5px;">Pague via PIX para liberar:</p>
+            
+            <div class="pix-qr">
+                <img src="imagens/qr final.jpeg" alt="QR Code PIX" style="width: 100%;">
+            </div>
+
+            <div class="chave-pix">
+                <strong>Chave:</strong> <span id="chave-texto">13082526683</span>
+            </div>
+        </div>
+
+        <button onclick="sortearNumeros()">Confirmar Pagamento e Sortear</button>
+
+        <div id="resultado">
+            Os números aparecerão aqui...
+        </div>
+    </div>
+
+    <script>
+        const PRECO_POR_NUMERO = 0.50;
+
+        function calcularPreco() {
+            const quantidadeInput = document.getElementById('quantidade');
+            const precoSpan = document.getElementById('preco-total');
+            let quantidade = parseInt(quantidadeInput.value) || 0;
+            let total = quantidade * PRECO_POR_NUMERO;
+            precoSpan.textContent = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+        function calcularPreco() {
+    const quantidadeInput = document.getElementById('quantidade');
+    let quantidade = parseInt(quantidadeInput.value);
+
+    // 1. Bloqueia números maiores que 60
+    if (quantidade > 60) {
+        quantidade = 60;
+        quantidadeInput.value = 60; // Corrige o que aparece na caixa para o usuário
+    }
+
+    // 2. Impede que o código tente calcular se estiver vazio ou negativo
+    if (isNaN(quantidade) || quantidade < 1) {
+        quantidade = 0;
+    }
+
+    // Continua o cálculo...
+    const total = (quantidade * 0.50).toFixed(2);
+    document.getElementById('preco-total').textContent = `R$ ${total.replace('.', ',')}`;
+    
+    // Se você usa o gerador de QR Code automático, chame-o aqui também
+    atualizarQRCode(total); 
+}
+
+        function sortearNumeros() {
+            const quantidadeInput = document.getElementById('quantidade');
+            const resultadoDiv = document.getElementById('resultado');
+
+            let quantidade = parseInt(quantidadeInput.value);
+            
+            if (isNaN(quantidade) || quantidade < 1) {
+                alert('Por favor, insira uma quantidade válida.');
+                return;
+            }
+
+            // Simulação de sorteio
+            const numerosSorteados = new Set();
+            while (numerosSorteados.size < quantidade) {
+                const numeroAleatorio = Math.floor(Math.random() * 100) + 1;
+                numerosSorteados.add(numeroAleatorio);
+            }
+
+            const numerosOrdenados = Array.from(numerosSorteados).sort((a, b) => a - b);
+            
+            resultadoDiv.innerHTML = ''; 
+            numerosOrdenados.forEach(num => {
+                const span = document.createElement('span');
+                span.classList.add('numero-sorteado');
+                span.textContent = num;
+                resultadoDiv.appendChild(span);
+            });
+        }
+
+        calcularPreco();
+    </script>
+
+</body>
+</html>
