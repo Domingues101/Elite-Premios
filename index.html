@@ -8,15 +8,16 @@
         /* Estilos Gerais */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         
+        html, body {
+            height: 100%;
+        }
+
         body { 
             color: #333; 
             line-height: 1.6; 
             background: #f4f4f4; 
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            margin-left: 5px;
-            margin-right: 5px; /* Garante que o footer fique embaixo */
         }
         
         header { 
@@ -48,9 +49,7 @@
             padding: 80px 5%; 
             text-align: center; 
         }
-        .hero h1 { font-size: clamp(1.8rem, 5vw, 3rem); margin-bottom: 20px; }
-        .hero p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; }
-        
+
         .btn { 
             background: #fbbf24; 
             color: #000; 
@@ -74,15 +73,16 @@
             transform: none !important;
         }
 
-        /* --- SEÇÃO CORRIGIDA --- */
+        main {
+            flex: 1; /* Empurra o footer para o final */
+        }
+
         .features { 
             padding: 60px 5%; 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 30px; 
             background: linear-gradient(135deg, #608ae6, #f5eefc);
-            height: 50vh; /* Cor mais limpa para contraste */
-            flex: 1; /* Faz esta parte ocupar o espaço restante */
         }
         
         .feature-card { 
@@ -92,29 +92,23 @@
             text-align: center; 
             background: #ffffff;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
         }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-card h3 { margin-bottom: 15px; color: #1e40af; font-size: 1.4rem; }
-        .feature-card p { color: #64748b; }
 
         footer { 
             background: #1f2937; 
             color: white; 
             text-align: center; 
-            padding: 77px 5%; 
+            padding: 40px 5%;
             width: 100%;
-        }
+        } /* CHAVE FECHADA AQUI */
 
-        @media (max-width:500px) {
-            header { justify-content: center; }
-            .logo { width: 100%; text-align: center; }
-            .nav-menu { width: 100%; }
-            .btn { flex: 1 1 40%; text-align: center; font-size: 0.8rem; padding: 10px 5px; }
+        /* Responsividade Celular */
+        @media (max-width: 600px) {
+            header { justify-content: center; text-align: center; }
+            .logo { width: 100%; }
+            .nav-menu { width: 100%; gap: 5px; }
+            .btn { font-size: 0.75rem; padding: 8px 12px; }
+            .features { padding: 30px 20px; }
         }
     </style>
 </head>
@@ -132,22 +126,22 @@
     <main>
         <section class="hero">
             <h1>O próximo ganhador pode ser você.</h1>
-            <p>Transformamos a sua vontade em resultados reais com sorteios transparentes e seguros.</p>
+            <p>Sorteios transparentes e seguros.</p>
             <a href="sorteio.html" class="btn" style="padding: 15px 30px; background: #fff; color: #2563eb;">Quero participar</a>
         </section>
 
         <section class="features">
             <div class="feature-card">
                 <h3>🛡️ Segurança Total</h3>
-                <p>Sorteios realizados com transparência e tecnologia de ponta para sua tranquilidade.</p>
+                <p>Sorteios realizados com transparência.</p>
             </div>
             <div class="feature-card">
                 <h3>⚡ Pagamento Instantâneo</h3>
-                <p>Receba seus prêmios via PIX de forma rápida e segura, sem burocracia.</p>
+                <p>Receba seus prêmios via PIX.</p>
             </div>
             <div class="feature-card">
                 <h3>💬 Suporte 24h</h3>
-                <p>Nossa equipe está sempre pronta para tirar suas dúvidas em qualquer momento.</p>
+                <p>Nossa equipe está sempre pronta.</p>
             </div>
         </section>
     </main>
