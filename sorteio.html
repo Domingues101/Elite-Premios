@@ -3,127 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteador de Números & Pagamento</title>
+    <title>Elite Prêmios | Sorteador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        /* Estilos Base - Identidade Elite Prêmios */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9; 
+            background-image: radial-gradient(#2563eb 0.5px, #f9f9f9 0.5px);
+            background-size: 20px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #e0f2f7; 
-            margin: 0;
-            color: #333;
             padding: 20px;
+            background: linear-gradient(135deg, #608ae6, #f5eefc);
+            height: 100vh;
         }
 
         .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 450px;
+            border-top: 5px solid #2563eb;
+            text-align: center;
         }
 
-        h1 { color: #2a6f8a; margin-bottom: 20px; font-size: 1.8em; }
+        .logo-area {
+            color: #2563eb;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
 
-        .input-group { margin-bottom: 15px; }
+        h1 {
+            color: #1f2937;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
 
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #4a4a4a; }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #374151;
+            font-weight: 600;
+        }
 
         input[type="number"] {
-            width: 80%;
-            padding: 10px;
-            border: 1px solid #cce7ed;
-            border-radius: 8px;
-            font-size: 1.2em;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            font-size: 1.1em;
             text-align: center;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         /* Seção de Pagamento */
         .pagamento-box {
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 15px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
             margin: 20px 0;
         }
 
         .valor-info {
-            color: #2e7d32;
+            color: #16a34a;
             font-size: 1.2em;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-weight: 600;
         }
 
-        .valor-info span { font-weight: bold; font-size: 1.4em; }
+        .valor-info span { font-size: 1.4em; }
 
         .pix-qr {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             margin: 10px auto;
-            background-color: #eee;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #ccc;
         }
 
         .chave-pix {
-            font-size: 0.9em;
+            font-size: 0.85em;
             background: #fff;
-            padding: 5px;
-            border: 1px dashed #aaa;
+            padding: 10px;
+            border: 1px dashed #94a3b8;
             word-break: break-all;
-            margin-top: 10px;
+            margin-top: 15px;
+            color: #475569;
         }
 
+        /* Botão Amarelo Elite Prêmios */
         button {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #fbbf24;
+            color: #000;
             padding: 15px;
             border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
             width: 100%;
-            font-weight: bold;
-            transition: 0.3s;
+            transition: background 0.3s, transform 0.2s;
         }
 
-        button:hover { background-color: #45a049; }
+        button:hover {
+            background-color: #f59e0b;
+            transform: translateY(-1px);
+        }
 
+        /* Área de Resultados */
         #resultado {
             margin-top: 20px;
             padding: 15px;
-            background-color: #e8f5e9;
-            border-radius: 10px;
-            border: 1px dashed #a5d6a7;
-            min-height: 40px;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            min-height: 50px;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 8px;
+            color: #64748b;
         }
 
         .numero-sorteado {
-            background-color: #66bb6a;
+            background-color: #2563eb;
             color: white;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 4px;
+            font-weight: bold;
+            animation: pop 0.3s ease-out;
         }
 
+        @keyframes pop {
+            0% { transform: scale(0.5); }
+            100% { transform: scale(1); }
+        }
+
+        /* Botão Voltar */
+        nav {
+            margin-top: 25px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .btn-voltar {
+            text-decoration: none;
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-voltar:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Sorteador</h1>
+        <div class="logo-area">Elite Prêmios</div>
+        <h1>Sorteador de Números</h1>
 
         <div class="input-group">
-            <label for="quantidade">Quantos números deseja?</label>
-            <input type="number" id="quantidade" min="1" max="100" value="1" oninput="calcularPreco()">
+            <label for="quantidade">Quantos números deseja comprar?</label>
+            <input type="number" id="quantidade" min="1" max="60" value="1" oninput="calcularPreco()">
         </div>
 
         <div class="pagamento-box">
@@ -131,14 +199,15 @@
                 Total: <span id="preco-total">R$ 0,50</span>
             </div>
             
-            <p style="font-size: 0.9em; color: #666; margin-bottom: 5px;">Pague via PIX para liberar:</p>
+            <p style="font-size: 0.85em; color: #64748b; margin-bottom: 10px;">Escaneie o QR Code abaixo:</p>
             
             <div class="pix-qr">
-                <img src="imagens/qr final.jpeg" alt="QR Code PIX" style="width: 100%;">
+                <img src="imagens/qr final.jpeg" alt="QR Code PIX" style="max-width: 100%;">
             </div>
 
             <div class="chave-pix">
-                <strong>Chave:</strong> <span id="chave-texto">13082526683</span>
+                <strong>Chave Copia e Cola:</strong><br>
+                <span id="chave-texto">13082526683</span>
             </div>
         </div>
 
@@ -147,6 +216,10 @@
         <div id="resultado">
             Os números aparecerão aqui...
         </div>
+
+        <nav>
+            <a href="index.html" class="btn-voltar">Voltar para a página inicial</a>
+        </nav>
     </div>
 
     <script>
@@ -154,38 +227,24 @@
 
         function calcularPreco() {
             const quantidadeInput = document.getElementById('quantidade');
-            const precoSpan = document.getElementById('preco-total');
-            let quantidade = parseInt(quantidadeInput.value) || 0;
-            let total = quantidade * PRECO_POR_NUMERO;
-            precoSpan.textContent = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            let quantidade = parseInt(quantidadeInput.value);
+
+            if (quantidade > 60) {
+                quantidade = 60;
+                quantidadeInput.value = 60;
+            }
+
+            if (isNaN(quantidade) || quantidade < 1) {
+                quantidade = 0;
+            }
+
+            const total = (quantidade * PRECO_POR_NUMERO).toFixed(2);
+            document.getElementById('preco-total').textContent = `R$ ${total.replace('.', ',')}`;
         }
-        function calcularPreco() {
-    const quantidadeInput = document.getElementById('quantidade');
-    let quantidade = parseInt(quantidadeInput.value);
-
-    // 1. Bloqueia números maiores que 60
-    if (quantidade > 60) {
-        quantidade = 60;
-        quantidadeInput.value = 60; // Corrige o que aparece na caixa para o usuário
-    }
-
-    // 2. Impede que o código tente calcular se estiver vazio ou negativo
-    if (isNaN(quantidade) || quantidade < 1) {
-        quantidade = 0;
-    }
-
-    // Continua o cálculo...
-    const total = (quantidade * 0.50).toFixed(2);
-    document.getElementById('preco-total').textContent = `R$ ${total.replace('.', ',')}`;
-    
-    // Se você usa o gerador de QR Code automático, chame-o aqui também
-    atualizarQRCode(total); 
-}
 
         function sortearNumeros() {
             const quantidadeInput = document.getElementById('quantidade');
             const resultadoDiv = document.getElementById('resultado');
-
             let quantidade = parseInt(quantidadeInput.value);
             
             if (isNaN(quantidade) || quantidade < 1) {
@@ -193,26 +252,30 @@
                 return;
             }
 
-            // Simulação de sorteio
-            const numerosSorteados = new Set();
-            while (numerosSorteados.size < quantidade) {
-                const numeroAleatorio = Math.floor(Math.random() * 100) + 1;
-                numerosSorteados.add(numeroAleatorio);
-            }
+            // Simulação visual de carregamento
+            resultadoDiv.innerHTML = 'Sorteando...';
 
-            const numerosOrdenados = Array.from(numerosSorteados).sort((a, b) => a - b);
-            
-            resultadoDiv.innerHTML = ''; 
-            numerosOrdenados.forEach(num => {
-                const span = document.createElement('span');
-                span.classList.add('numero-sorteado');
-                span.textContent = num;
-                resultadoDiv.appendChild(span);
-            });
+            setTimeout(() => {
+                const numerosSorteados = new Set();
+                while (numerosSorteados.size < quantidade) {
+                    const numeroAleatorio = Math.floor(Math.random() * 100) + 1;
+                    numerosSorteados.add(numeroAleatorio);
+                }
+
+                const numerosOrdenados = Array.from(numerosSorteados).sort((a, b) => a - b);
+                
+                resultadoDiv.innerHTML = ''; 
+                numerosOrdenados.forEach(num => {
+                    const span = document.createElement('span');
+                    span.classList.add('numero-sorteado');
+                    span.textContent = num;
+                    resultadoDiv.appendChild(span);
+                });
+            }, 800);
         }
 
+        // Inicializa o preço
         calcularPreco();
     </script>
-
 </body>
 </html>
